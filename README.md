@@ -11,7 +11,7 @@ Session source for [unite.vim](https://github.com/shougo/unite.vim).
 Installation
 ------------
 
-Task [vim-plug](https://github.com/junegunn/vim-plug) for example:
+Take [vim-plug](https://github.com/junegunn/vim-plug) for example:
 
   *  `Plug 'chemzqm/unite-session'`
 
