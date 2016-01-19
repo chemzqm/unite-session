@@ -34,7 +34,11 @@ set cpo&vim
 function! s:RestartVim()
   let name = empty(v:this_session) ? 'default' : v:this_session
   call unite#sources#session#_save(name)
-  silent execute '!mvim -c "SessionLoad ' . name . '"'
+  if exists(':ItermStartTab')
+    execute 'ItermStartTab! -silent mvim -c "SessionLoad ' . v:this_session . '"'
+  else
+    silent execute '!mvim -c "SessionLoad ' . name . '"'
+  endif
   silent! wa
   silent quitall!
 endfunction
