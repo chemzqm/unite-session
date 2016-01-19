@@ -31,12 +31,6 @@ endif
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! s:SaveSession()
-  if v:dying == 0 && has('gui_running')
-    call unite#sources#session#_save('default')
-  endif
-endfunction
-
 function! s:RestartVim()
   let name = empty(v:this_session) ? 'default' : v:this_session
   call unite#sources#session#_save(name)
@@ -52,11 +46,6 @@ command! -nargs=? -complete=customlist,unite#sources#session#_complete
       \ SessionLoad call unite#sources#session#_load(<q-args>)
 
 command! -nargs=0 RestartVim call s:RestartVim()
-
-augroup session
-  autocmd!
-  autocmd VimLeave * call s:SaveSession()
-augroup augroup
 
 let g:loaded_unite_source_session = 1
 
