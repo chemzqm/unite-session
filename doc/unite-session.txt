@@ -62,6 +62,8 @@ COMMANDS 					*unite-session-commands*
 
 :RestartVim				*:RestartVim*
 		Restart vim with current session(default session if empty).
+		Changes would be saved before restart except the empty name
+		buffers.
 
 ------------------------------------------------------------------------------
 VARIABLES 					*unite-session-variables*
