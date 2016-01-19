@@ -32,12 +32,19 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! s:RestartVim()
+  if has('gui_running') && has('gui_macvim')
+    let cmd = 'mvim'
+  elseif has('gui_running')
+    let cmd = 'gvim'
+  else
+    let cmd = 'vim'
+  endif
   let name = empty(v:this_session) ? 'default' : v:this_session
   call unite#sources#session#_save(name)
   if exists(':ItermStartTab')
-    execute 'ItermStartTab! -silent mvim -c "SessionLoad ' . v:this_session . '"'
+    execute 'ItermStartTab! -silent ' . cmd . ' -c "SessionLoad ' . v:this_session . '"'
   else
-    silent execute '!mvim -c "SessionLoad ' . name . '"'
+    silent execute '!' . cmd . ' -c "SessionLoad ' . v:this_session . '"'
   endif
   silent! wa
   silent quitall!
