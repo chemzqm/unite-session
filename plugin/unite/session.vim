@@ -34,7 +34,7 @@ set cpo&vim
 function! s:RestartVim()
   let name = empty(v:this_session) ? 'default' : v:this_session
   call unite#sources#session#_save(name)
-  silent execute '!mvim -c "SessionLoad ' . name . '" &'
+  silent execute '!mvim -c "SessionLoad ' . name . '"'
   silent! wa
   silent quitall!
 endfunction
