@@ -41,8 +41,8 @@ function! s:RestartVim()
   endif
   let name = empty(v:this_session) ? 'default' : v:this_session
   call unite#sources#session#_save(name)
-  if exists(':ItermStartTab')
-    execute 'ItermStartTab! -silent ' . cmd . ' -c "SessionLoad ' . v:this_session . '"'
+  if exists('*Iterm#Run')
+    call Iterm#Run(cmd . ' -c "SessionLoad ' . v:this_session . '"')
   else
     silent execute '!' . cmd . ' -c "SessionLoad ' . v:this_session . '"'
   endif
