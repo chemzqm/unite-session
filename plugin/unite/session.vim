@@ -42,9 +42,11 @@ function! s:RestartVim()
   let name = empty(v:this_session) ? 'default' : v:this_session
   call unite#sources#session#_save(name)
   if exists(':ItermStart')
-    call Iterm#Run(cmd . ' -c "SessionLoad ' . v:this_session . '"')
+    let succeed = Iterm#Run(cmd . ' -c "SessionLoad ' . v:this_session . '"')
+    if !succeed | return | endif
   else
     silent execute '!' . cmd . ' -c "SessionLoad ' . v:this_session . '"'
+    if v:shell_error| return | endif
   endif
   silent! wa
   silent quitall!
