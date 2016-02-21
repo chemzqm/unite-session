@@ -28,6 +28,7 @@ if exists('g:loaded_unite_source_session')
   finish
 endif
 
+let s:restart_cmd = expand('<sfile>:h:h:h').'/bin/nvimstart'
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -41,9 +42,13 @@ function! s:RestartVim()
   endif
   let name = empty(v:this_session) ? 'default' : v:this_session
   call unite#sources#session#_save(name)
-  if exists(':ItermStart')
-    let succeed = Iterm#Run(cmd . ' -c "SessionLoad ' . v:this_session . '"')
+  if exists(':ItermStart') && has('gui_running')
+    let succeed = Iterm#Run(cmd . ' -c "SessionLoad ' . name . '"')
     if !succeed | return | endif
+  elseif has('nvim')
+    call jobstart(s:restart_cmd . ' ' . v:this_session , {
+      \ 'detach': 1,
+      \})
   else
     silent execute '!' . cmd . ' -c "SessionLoad ' . v:this_session . '"'
     if v:shell_error| return | endif
