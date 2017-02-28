@@ -1,6 +1,8 @@
 unite-session.vim
 =================
 
+**Deprecated! Consider use [denite-extra](https://github.com/chemzqm/denite-extra) instead**
+
 This is fork of [Shougo/unite-session](https://github.com/Shougo/unite-session), with bug fixes and command name
 changed.
 

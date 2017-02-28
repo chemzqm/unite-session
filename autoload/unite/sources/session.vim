@@ -195,6 +195,7 @@ function! s:source.action_table.save.func(candidates) "{{{
     endif
   endfor
 endfunction"}}}
+
 let s:source_new.action_table.save = s:source.action_table.save
 function! s:source_new.action_table.save.func(candidates) "{{{
   for candidate in a:candidates

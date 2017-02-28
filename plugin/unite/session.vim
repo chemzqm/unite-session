@@ -29,11 +29,12 @@ if exists('g:loaded_unite_source_session')
 endif
 
 let s:restart_cmd = expand('<sfile>:h:h:h').'/bin/nvimstart'
-let s:save_cpo = &cpo
-set cpo&vim
 
-function! s:RestartVim()
-  if has('gui_running') && has('gui_macvim')
+function! s:RestartVim() abort
+  if exists('g:nyaovim_version')
+    call rpcnotify(0, 'nyaovim:reload')
+    return
+  elseif has('gui_running') && has('gui_macvim')
     let cmd = 'mvim'
   elseif has('gui_running')
     let cmd = 'gvim'
@@ -66,8 +67,5 @@ command! -nargs=? -complete=customlist,unite#sources#session#_complete
 command! -nargs=0 RestartVim call s:RestartVim()
 
 let g:loaded_unite_source_session = 1
-
-let &cpo = s:save_cpo
-unlet s:save_cpo
 
 " vim: foldmethod=marker
